@@ -85,14 +85,14 @@ ${CROSS_COMPILE}readelf -a ${OUTDIR}/rootfs/bin/busybox | grep "program interpre
 ${CROSS_COMPILE}readelf -a ${OUTDIR}/rootfs/bin/busybox | grep "Shared library"
 
 # TODO: Add library dependencies to rootfs
-ALIB=$(${CROSS_COMPILE}readelf -a bin/busybox | grep "program interpreter" | awk '{print $NF}' | sed -e 's/\(.*\)]/\1/')
+ALIB=$(${CROSS_COMPILE}readelf -a ${OUTDIR}/rootfs/bin/busybox | grep "program interpreter" | awk '{print $NF}' | sed -e 's/\(.*\)]/\1/')
 SYSROOT=$(${CROSS_COMPILE}gcc -print-sysroot)
 sudo cp -p "${SYSROOT}${ALIB}" "${OUTDIR}/rootfs/lib64/"
 sudo cp -p "${SYSROOT}${ALIB}" "${OUTDIR}/rootfs/lib/"
 
-LIBS=$(${CROSS_COMPILE}readelf -a bin/busybox | grep "Shared library" | awk '{print $NF}' | sed -e 's/\[\(.*\)\]/\1/')
+LIBS=$(${CROSS_COMPILE}readelf -a ${OUTDIR}/rootfs/bin/busybox | grep "Shared library" | awk '{print $NF}' | sed -e 's/\[\(.*\)\]/\1/')
 for LIB in ${LIBS}; do
-    sudo cp -p "${SYSROOT}/lib64/${LIB}" "${OUTDIR}/rootfs/lib64/"
+    sudo cp -p "${SYSROOT}/lib64/${LIB}" "${OUTDIR}/rootfs/lib64/" || sudo cp -p "${SYSROOT}/lib/${LIB}" "${OUTDIR}/rootfs/lib/"
 done
 
 
