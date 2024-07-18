@@ -47,6 +47,7 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
 fi
 
 echo "Adding the Image in outdir"
+cp -rp ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ${OUTDIR}/.
 
 echo "Creating the staging directory for the root filesystem"
 cd "$OUTDIR"
@@ -57,7 +58,6 @@ then
 fi
 
 # TODO: Create necessary base directories
-cp arch/${ARCH}/boot/Image ${OUTDIR}/
 mkdir -p ${OUTDIR}/rootfs
 cd ${OUTDIR}/rootfs
 mkdir -p bin dev etc home lib lib64 proc sbin sys tmp usr var
@@ -112,7 +112,7 @@ cp $FINDER_APP_DIR/autorun-qemu.sh ${OUTDIR}/rootfs/home/
 
 # TODO: Chown the root directory
 sudo chown -R root:root ${OUTDIR}/rootfs
-
+sudo chmod 4755 ${OUTDIR}/rootfs/bin/busybox
 
 # TODO: Create initramfs.cpio.gz
 cd ${OUTDIR}/rootfs
