@@ -1,4 +1,4 @@
-/Users/camartinez/Applications/CLion.app/Contents/bin/cmake/mac/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Users/camartinez/Applications/CLion.app/Contents/bin/ninja/mac/x64/ninja -G Ninja -S /Users/camartinez/aesd-assignments -B /Users/camartinez/aesd-assignments/cmake-build-debug
+/opt/jetbrains/clion-2024.1.4/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/opt/jetbrains/clion-2024.1.4/bin/ninja/linux/x64/ninja -G Ninja -S /home/carlos/aesd-assignments -B /home/carlos/aesd-assignments/cmake-build-debug
 CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
   Compatibility with CMake < 3.5 will be removed from a future version of
   CMake.
@@ -31,8 +31,8 @@ CMake Deprecation Warning at assignment-autotest/Unity/src/CMakeLists.txt:11 (cm
   CMake that the project does not need compatibility with older versions.
 
 
--- Generating ;/Users/camartinez/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;/Users/camartinez/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c from test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c
--- Building executable including ;/Users/camartinez/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;/Users/camartinez/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c and ../examples/autotest-validate/autotest-validate.c
--- Configuring done (0.1s)
+-- Generating ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c from test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment4/Test_threading.c
+-- Building executable including ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment4/Test_threading.c and ../examples/autotest-validate/autotest-validate.c;../examples/threading/threading.c
+-- Configuring done (0.0s)
 -- Generating done (0.0s)
--- Build files have been written to: /Users/camartinez/aesd-assignments/cmake-build-debug
+-- Build files have been written to: /home/carlos/aesd-assignments/cmake-build-debug
