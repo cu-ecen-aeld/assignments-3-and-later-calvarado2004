@@ -117,7 +117,7 @@ build install/strip: phony CMakeFiles/install/strip.util
 #############################################
 # Order-only phony target for assignment-autotest
 
-build cmake_object_order_depends_target_assignment-autotest: phony || /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c cmake_object_order_depends_target_unity server/aesdsocket.c
+build cmake_object_order_depends_target_assignment-autotest: phony || /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c cmake_object_order_depends_target_unity
 
 build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello.c || cmake_object_order_depends_target_assignment-autotest
   DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o.d
@@ -133,26 +133,12 @@ build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Te
   OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
   OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1
 
-build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment4/Test_threading.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading.c || cmake_object_order_depends_target_assignment-autotest
-  DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment4/Test_threading.c.o.d
-  FLAGS = -pthread -Wall -Werror -g -fdiagnostics-color=always
-  INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src -I/home/carlos/aesd-assignments/assignment-autotest/. -I/home/carlos/aesd-assignments/assignment-autotest/..
-  OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
-  OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment4
-
 build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello_Runner.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c || cmake_object_order_depends_target_assignment-autotest
   DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello_Runner.c.o.d
   FLAGS = -pthread -Wall -Werror -g -fdiagnostics-color=always
   INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src -I/home/carlos/aesd-assignments/assignment-autotest/. -I/home/carlos/aesd-assignments/assignment-autotest/..
   OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
   OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1
-
-build assignment-autotest/CMakeFiles/assignment-autotest.dir/__/server/aesdsocket.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/cmake-build-debug/server/aesdsocket.c || cmake_object_order_depends_target_assignment-autotest
-  DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/__/server/aesdsocket.c.o.d
-  FLAGS = -pthread -Wall -Werror -g -fdiagnostics-color=always
-  INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src -I/home/carlos/aesd-assignments/assignment-autotest/. -I/home/carlos/aesd-assignments/assignment-autotest/..
-  OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
-  OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/__/server
 
 build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c || cmake_object_order_depends_target_assignment-autotest
   DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o.d
@@ -161,26 +147,12 @@ build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Te
   OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
   OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1
 
-build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment4/Test_threading_Runner.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c || cmake_object_order_depends_target_assignment-autotest
-  DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment4/Test_threading_Runner.c.o.d
-  FLAGS = -pthread -Wall -Werror -g -fdiagnostics-color=always
-  INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src -I/home/carlos/aesd-assignments/assignment-autotest/. -I/home/carlos/aesd-assignments/assignment-autotest/..
-  OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
-  OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment4
-
 build assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/autotest-validate/autotest-validate.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/examples/autotest-validate/autotest-validate.c || cmake_object_order_depends_target_assignment-autotest
   DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/autotest-validate/autotest-validate.c.o.d
   FLAGS = -pthread -Wall -Werror -g -fdiagnostics-color=always
   INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src -I/home/carlos/aesd-assignments/assignment-autotest/. -I/home/carlos/aesd-assignments/assignment-autotest/..
   OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
   OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/autotest-validate
-
-build assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/threading/threading.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/examples/threading/threading.c || cmake_object_order_depends_target_assignment-autotest
-  DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/threading/threading.c.o.d
-  FLAGS = -pthread -Wall -Werror -g -fdiagnostics-color=always
-  INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src -I/home/carlos/aesd-assignments/assignment-autotest/. -I/home/carlos/aesd-assignments/assignment-autotest/..
-  OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
-  OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/threading
 
 build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/unity_runner.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c || cmake_object_order_depends_target_assignment-autotest
   DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/unity_runner.c.o.d
@@ -197,7 +169,7 @@ build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/unity_runner.c
 #############################################
 # Link the executable assignment-autotest/assignment-autotest
 
-build assignment-autotest/assignment-autotest: C_EXECUTABLE_LINKER__assignment-autotest_Debug assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment4/Test_threading.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/server/aesdsocket.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment4/Test_threading_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/autotest-validate/autotest-validate.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/threading/threading.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/unity_runner.c.o | assignment-autotest/Unity/src/libunity.a || assignment-autotest/Unity/src/libunity.a
+build assignment-autotest/assignment-autotest: C_EXECUTABLE_LINKER__assignment-autotest_Debug assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/autotest-validate/autotest-validate.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/unity_runner.c.o | assignment-autotest/Unity/src/libunity.a || assignment-autotest/Unity/src/libunity.a
   FLAGS = -pthread -Wall -Werror -g
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = assignment-autotest/Unity/src/libunity.a
@@ -276,9 +248,9 @@ build assignment-autotest/install/strip: phony assignment-autotest/CMakeFiles/in
 #############################################
 # Custom command for /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c
 
-build /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c server/aesdsocket.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c server/aesdsocket.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c server/aesdsocket.c /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c | ${cmake_ninja_workdir}server/aesdsocket.c ${cmake_ninja_workdir}server/aesdsocket.c ${cmake_ninja_workdir}server/aesdsocket.c: CUSTOM_COMMAND /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading.c || assignment-autotest/Unity/src/libunity.a
-  COMMAND = cd /home/carlos/aesd-assignments/cmake-build-debug/assignment-autotest && /home/carlos/aesd-assignments/assignment-autotest/auto_generate.sh test/assignment1/Test_hello.c test/assignment1/Test_assignment_validate.c test/assignment4/Test_threading.c
-  DESC = Generating /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c, ../server/aesdsocket.c, /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c, ../server/aesdsocket.c, /home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c, ../server/aesdsocket.c, /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c
+build /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c: CUSTOM_COMMAND /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate.c || assignment-autotest/Unity/src/libunity.a
+  COMMAND = cd /home/carlos/aesd-assignments/cmake-build-debug/assignment-autotest && /home/carlos/aesd-assignments/assignment-autotest/auto_generate.sh test/assignment1/Test_hello.c test/assignment1/Test_assignment_validate.c
+  DESC = Generating /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c, /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c, /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c
   restat = 1
 
 # =============================================================================

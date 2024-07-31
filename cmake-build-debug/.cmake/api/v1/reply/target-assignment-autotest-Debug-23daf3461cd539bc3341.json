@@ -75,10 +75,7 @@
 				2,
 				3,
 				4,
-				5,
-				6,
-				7,
-				8
+				5
 			]
 		}
 	],
@@ -128,17 +125,14 @@
 				2,
 				3,
 				4,
-				5,
-				6,
-				7,
-				8
+				5
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				9
+				6
 			]
 		}
 	],
@@ -159,12 +153,6 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "assignment-autotest/test/assignment4/Test_threading.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
 			"isGenerated" : true,
 			"path" : "assignment-autotest/test/assignment1/Test_hello_Runner.c",
 			"sourceGroupIndex" : 0
@@ -179,20 +167,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"isGenerated" : true,
-			"path" : "assignment-autotest/test/assignment4/Test_threading_Runner.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
 			"path" : "examples/autotest-validate/autotest-validate.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "examples/threading/threading.c",
 			"sourceGroupIndex" : 0
 		},
 		{
