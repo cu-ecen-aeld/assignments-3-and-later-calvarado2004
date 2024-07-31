@@ -18,15 +18,23 @@ int server_fd = -1;
 int client_fd = -1;
 
 void cleanup() {
-    if (client_fd >= 0) close(client_fd);
-    if (server_fd >= 0) close(server_fd);
-    remove(FILE_PATH);
+    if (client_fd >= 0) {
+        close(client_fd);
+        client_fd = -1;
+    }
+    if (server_fd >= 0) {
+        close(server_fd);
+        server_fd = -1;
+    }
+    if (remove(FILE_PATH) != 0) {
+        syslog(LOG_ERR, "Failed to remove file: %s", strerror(errno));
+    }
     closelog();
 }
 
 void signal_handler(int sig) {
     if (sig == SIGINT || sig == SIGTERM) {
-        syslog(LOG_INFO, "Caught signal, exiting");
+        syslog(LOG_INFO, "Caught signal %d, exiting", sig);
         cleanup();
         exit(0);
     }
@@ -76,6 +84,7 @@ int main(int argc, char *argv[]) {
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd == -1) {
         syslog(LOG_ERR, "Failed to create socket: %s", strerror(errno));
+        cleanup();
         return -1;
     }
 
@@ -87,6 +96,7 @@ int main(int argc, char *argv[]) {
 
     if (bind(server_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
         syslog(LOG_ERR, "Failed to bind socket: %s", strerror(errno));
+        cleanup();
         return -1;
     }
 
@@ -95,6 +105,7 @@ int main(int argc, char *argv[]) {
         pid_t pid = fork();
         if (pid < 0) {
             syslog(LOG_ERR, "Fork failed: %s", strerror(errno));
+            cleanup();
             exit(EXIT_FAILURE);
         }
         if (pid > 0) {
@@ -105,12 +116,14 @@ int main(int argc, char *argv[]) {
         // Child process
         if (setsid() < 0) {
             syslog(LOG_ERR, "setsid failed: %s", strerror(errno));
+            cleanup();
             exit(EXIT_FAILURE);
         }
 
         // Change working directory to root
         if (chdir("/") < 0) {
             syslog(LOG_ERR, "chdir failed: %s", strerror(errno));
+            cleanup();
             exit(EXIT_FAILURE);
         }
 
@@ -123,6 +136,7 @@ int main(int argc, char *argv[]) {
     // Start listening on the socket
     if (listen(server_fd, BACKLOG) == -1) {
         syslog(LOG_ERR, "Failed to listen on socket: %s", strerror(errno));
+        cleanup();
         return -1;
     }
 
