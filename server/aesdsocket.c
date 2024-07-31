@@ -52,13 +52,15 @@ void handle_connection(int client_fd) {
     while ((bytes_received = recv(client_fd, buffer, sizeof(buffer) - 1, 0)) > 0) {
         buffer[bytes_received] = '\0';
         fputs(buffer, file);
+        fflush(file);  // Ensure data is written to disk
         if (strchr(buffer, '\n')) {
             break;
         }
     }
-    fflush(file);
 
+    // Reset file pointer to the beginning of the file
     fseek(file, 0, SEEK_SET);
+
     while ((bytes_received = fread(buffer, 1, sizeof(buffer), file)) > 0) {
         send(client_fd, buffer, bytes_received, 0);
     }
