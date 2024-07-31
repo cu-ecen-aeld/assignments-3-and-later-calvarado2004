@@ -1,15 +1,16 @@
-CC := gcc
 CFLAGS := -Wall -Werror
-
-TARGET := aesdsocket
-
-.PHONY: all clean
+TARGET = aesdsocket
+SRC = aesdsocket.c
+OBJ = $(SRC:.c=.o)
 
 all: $(TARGET)
 
-$(TARGET): aesdsocket.c
-	$(CC) $(CFLAGS) -o $(TARGET) aesdsocket.c
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
 
+%.o: %.c
+	$(CC) -c $< -o $@
+
+.PHONY: clean
 clean:
-	rm -f $(TARGET)
-
+	rm -f $(TARGET) $(OBJ)
