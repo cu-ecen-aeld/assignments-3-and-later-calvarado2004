@@ -35,6 +35,9 @@ void cleanup() {
 void signal_handler(int sig) {
     if (sig == SIGINT || sig == SIGTERM) {
         syslog(LOG_INFO, "Caught signal %d, exiting", sig);
+        if (server_fd >= 0) {
+            shutdown(server_fd, SHUT_RDWR);
+        }
         cleanup();
         exit(0);
     }
@@ -72,6 +75,7 @@ int main(int argc, char *argv[]) {
     struct sockaddr_in server_addr, client_addr;
     socklen_t client_addr_len = sizeof(client_addr);
     int daemon_mode = 0;
+    int optval = 1;
 
     openlog("aesdsocket", LOG_PID | LOG_CONS, LOG_USER);
     signal(SIGINT, signal_handler);
@@ -86,6 +90,13 @@ int main(int argc, char *argv[]) {
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd == -1) {
         syslog(LOG_ERR, "Failed to create socket: %s", strerror(errno));
+        cleanup();
+        return -1;
+    }
+
+    // Set socket options
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) == -1) {
+        syslog(LOG_ERR, "Failed to set socket options: %s", strerror(errno));
         cleanup();
         return -1;
     }
