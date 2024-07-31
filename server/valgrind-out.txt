@@ -1,0 +1,136 @@
+==7754== Memcheck, a memory error detector
+==7754== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==7754== Using Valgrind-3.23.0-c54d316124-20240426 and LibVEX; rerun with -h for copyright info
+==7754== Command: ./aesdsocket
+==7754== Parent PID: 7752
+==7754== 
+--7754-- 
+--7754-- Valgrind options:
+--7754--    --error-exitcode=1
+--7754--    --leak-check=full
+--7754--    --show-leak-kinds=all
+--7754--    --track-origins=yes
+--7754--    --errors-for-leak-kinds=definite
+--7754--    --verbose
+--7754--    --log-file=valgrind-out.txt
+--7754-- Contents of /proc/version:
+--7754--   Linux version 6.9.11-200.fc40.x86_64 (mockbuild@6866f5aef808443a9a7e33cf5dcb74af) (gcc (GCC) 14.1.1 20240701 (Red Hat 14.1.1-7), GNU ld version 2.41-37.fc40) #1 SMP PREEMPT_DYNAMIC Thu Jul 25 18:17:34 UTC 2024
+--7754-- 
+--7754-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed-fma
+--7754-- Page sizes: currently 4096, max supported 4096
+--7754-- Valgrind library directory: /usr/libexec/valgrind
+--7754-- Reading syms from /home/carlos/aesd-assignments/server/aesdsocket
+--7754-- Reading syms from /usr/lib64/ld-linux-x86-64.so.2
+--7754-- Warning: cross-CU LIMITATION: some inlined fn names
+--7754-- might be shown as UnknownInlinedFun
+--7754-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
+--7754--    object doesn't have a dynamic symbol table
+--7754-- Scheduler: using generic scheduler lock implementation.
+--7754-- Reading suppressions file: /usr/libexec/valgrind/default.supp
+==7754== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-7754-by-carlos-on-???
+==7754== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-7754-by-carlos-on-???
+==7754== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-7754-by-carlos-on-???
+==7754== 
+==7754== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==7754== don't want to do, unless you know exactly what you're doing,
+==7754== or are doing some strange experiment):
+==7754==   /usr/libexec/valgrind/../../bin/vgdb --pid=7754 ...command...
+==7754== 
+==7754== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==7754==   /path/to/gdb ./aesdsocket
+==7754== and then give GDB the following command
+==7754==   target remote | /usr/libexec/valgrind/../../bin/vgdb --pid=7754
+==7754== --pid is optional if only one valgrind process is running
+==7754== 
+==7754== Downloading debug info for /usr/libexec/valgrind/memcheck-amd64-linux...
+--7754--   Considering /home/carlos/.cache/debuginfod_client/40e5ee157058b38bbd9a1028c320bbe4d0442c8b/debuginfo ..
+--7754--   .. CRC is valid
+==7754== Successfully downloaded debug file for /usr/libexec/valgrind/memcheck-amd64-linux
+==7754== Downloading debug info for /home/carlos/.cache/debuginfod_client/40e5ee157058b38bbd9a1028c320bbe4d0442c8b/debuginfo...
+--7754--   Considering /home/carlos/.cache/debuginfod_client/2f6c4fea722ca152c38a321408ce4a7a67d9a28f/debuginfo ..
+--7754--   .. build-id is valid
+==7754== Successfully downloaded debug file for /home/carlos/.cache/debuginfod_client/40e5ee157058b38bbd9a1028c320bbe4d0442c8b/debuginfo
+--7754-- REDIR: 0x4026360 (ld-linux-x86-64.so.2:strlen) redirected to 0x5821654f (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--7754-- REDIR: 0x4024d20 (ld-linux-x86-64.so.2:strcmp) redirected to 0x58216569 (vgPlain_amd64_linux_REDIR_FOR_strcmp)
+--7754-- REDIR: 0x4024af0 (ld-linux-x86-64.so.2:index) redirected to 0x58216584 (vgPlain_amd64_linux_REDIR_FOR_index)
+--7754-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--7754-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+==7754== WARNING: new redirection conflicts with existing -- ignoring it
+--7754--     old: 0x04024d20 (strcmp              ) R-> (0000.0) 0x58216569 vgPlain_amd64_linux_REDIR_FOR_strcmp
+--7754--     new: 0x04024d20 (strcmp              ) R-> (2016.0) 0x0484e350 strcmp
+==7754== WARNING: new redirection conflicts with existing -- ignoring it
+--7754--     old: 0x04026360 (strlen              ) R-> (0000.0) 0x5821654f vgPlain_amd64_linux_REDIR_FOR_strlen
+--7754--     new: 0x04026360 (strlen              ) R-> (2007.0) 0x0484d000 strlen
+--7754-- REDIR: 0x4024150 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4852aa0 (mempcpy)
+--7754-- Reading syms from /usr/lib64/libc.so.6
+==7754== Downloading debug info for /usr/lib64/libc.so.6...
+--7754--   Considering /home/carlos/.cache/debuginfod_client/8f53abaad945a669f2bdcd25f471d80e077568ef/debuginfo ..
+--7754--   .. CRC is valid
+==7754== Successfully downloaded debug file for /usr/lib64/libc.so.6
+--7754-- REDIR: 0x4026500 (ld-linux-x86-64.so.2:strncmp) redirected to 0x484db00 (strncmp)
+--7754-- REDIR: 0x492e6d0 (libc.so.6:strnlen) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492e760 (libc.so.6:strpbrk) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492c750 (libc.so.6:strcmp) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x4943e40 (libc.so.6:wcsnlen) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492b750 (libc.so.6:memset) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x4943540 (libc.so.6:wcslen) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x49a6f00 (libc.so.6:__memcpy_chk) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492b6c0 (libc.so.6:memrchr) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x4943de0 (libc.so.6:wcsncpy) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492abf0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x4942320 (libc.so.6:wcschr) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492c640 (libc.so.6:index) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492e790 (libc.so.6:rindex) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x49423d0 (libc.so.6:wcscmp) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492b970 (libc.so.6:stpncpy) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x494fd00 (libc.so.6:wmemchr) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492e570 (libc.so.6:strncmp) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492b9d0 (libc.so.6:strcasecmp) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492d960 (libc.so.6:strcspn) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x4943310 (libc.so.6:wcscpy) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492c5d0 (libc.so.6:strcat) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492e470 (libc.so.6:strncasecmp_l) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492c6c0 (libc.so.6:strchrnul) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492ab00 (libc.so.6:bcmp) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492d8f0 (libc.so.6:strcpy) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492ba70 (libc.so.6:strcasecmp_l) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492e340 (libc.so.6:strlen) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492e610 (libc.so.6:strncpy) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x494fd80 (libc.so.6:wmemcmp) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x49a7020 (libc.so.6:__memmove_chk) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+==7754== WARNING: new redirection conflicts with existing -- ignoring it
+--7754--     old: 0x049ebe10 (__memcpy_chk_avx_una) R-> (2030.0) 0x04852bb0 __memcpy_chk
+--7754--     new: 0x049ebe10 (__memcpy_chk_avx_una) R-> (2024.0) 0x048524b0 __memmove_chk
+--7754-- REDIR: 0x492b900 (libc.so.6:stpcpy) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492b480 (libc.so.6:memmove) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+==7754== Preferring higher priority redirection:
+--7754--     old: 0x049ebe40 (__memcpy_avx_unalign) R-> (2018.0) 0x0484fa20 __memcpy_avx_unaligned_erms
+--7754--     new: 0x049ebe40 (__memcpy_avx_unalign) R-> (2018.1) 0x048517b0 memmove
+--7754-- REDIR: 0x492aa80 (libc.so.6:memchr) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492e960 (libc.so.6:strspn) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x4941f50 (libc.so.6:wcpncpy) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492b5a0 (libc.so.6:mempcpy) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x492e3d0 (libc.so.6:strncasecmp) redirected to 0x48381ea (_vgnU_ifunc_wrapper)
+--7754-- REDIR: 0x49f0a30 (libc.so.6:__strrchr_avx2) redirected to 0x484c7e0 (rindex)
+--7754-- REDIR: 0x49ec840 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x4851670 (memset)
+--7754-- REDIR: 0x49ee1e0 (libc.so.6:__strchrnul_avx2) redirected to 0x4852530 (strchrnul)
+--7754-- REDIR: 0x49ebe40 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x48517b0 (memmove)
+--7754-- REDIR: 0x49eeb80 (libc.so.6:__strlen_avx2) redirected to 0x484cee0 (strlen)
+--7754-- REDIR: 0x49efc60 (libc.so.6:__strncmp_avx2) redirected to 0x484d920 (strncmp)
+--7754-- REDIR: 0x4927310 (libc.so.6:free) redirected to 0x4846b11 (free)
+--7754-- REDIR: 0x4926c10 (libc.so.6:malloc) redirected to 0x48437f0 (malloc)
+==7754== Downloading debug info for /home/carlos/aesd-assignments/server/aesdsocket...
+==7754== Server query failed: No such file or directory
+--7754-- REDIR: 0x49ebe10 (libc.so.6:__memcpy_chk_avx_unaligned_erms) redirected to 0x4852bb0 (__memcpy_chk)
+--7754-- REDIR: 0x49edfa0 (libc.so.6:__strchr_avx2) redirected to 0x484ca20 (index)
+--7754-- REDIR: 0x49eb6e0 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4850da0 (bcmp)
+--7754-- REDIR: 0x49ee3d0 (libc.so.6:__strcmp_avx2) redirected to 0x484e1d0 (strcmp)
+--7754-- REDIR: 0x49ebe00 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4852660 (mempcpy)
+==7754== 
+==7754== HEAP SUMMARY:
+==7754==     in use at exit: 0 bytes in 0 blocks
+==7754==   total heap usage: 19 allocs, 19 frees, 29,738 bytes allocated
+==7754== 
+==7754== All heap blocks were freed -- no leaks are possible
+==7754== 
+==7754== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -16,7 +16,6 @@
 
 int server_fd = -1;
 int client_fd = -1;
-volatile sig_atomic_t exit_flag = 0;
 
 void cleanup() {
     if (client_fd >= 0) close(client_fd);
@@ -28,7 +27,8 @@ void cleanup() {
 void signal_handler(int sig) {
     if (sig == SIGINT || sig == SIGTERM) {
         syslog(LOG_INFO, "Caught signal, exiting");
-        exit_flag = 1;
+        cleanup();
+        exit(0);
     }
 }
 
@@ -126,11 +126,10 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    while (!exit_flag) {
+    while (1) {
         // Accept a connection
         client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &client_addr_len);
         if (client_fd == -1) {
-            if (errno == EINTR) continue;  // If interrupted by signal, continue loop
             syslog(LOG_ERR, "Failed to accept connection: %s", strerror(errno));
             continue;
         }
