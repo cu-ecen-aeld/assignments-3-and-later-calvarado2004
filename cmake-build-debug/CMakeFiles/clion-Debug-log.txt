@@ -31,8 +31,21 @@ CMake Deprecation Warning at assignment-autotest/Unity/src/CMakeLists.txt:11 (cm
   CMake that the project does not need compatibility with older versions.
 
 
--- Generating ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c from test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment4/Test_threading.c
--- Building executable including ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment4/Test_threading.c and ../examples/autotest-validate/autotest-validate.c;../examples/threading/threading.c
+-- Generating ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;../server/aesdsocket.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;../server/aesdsocket.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c;../server/aesdsocket.c from test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment4/Test_threading.c
+-- Building executable including ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;../server/aesdsocket.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;../server/aesdsocket.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment4/Test_threading_Runner.c;../server/aesdsocket.c test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment4/Test_threading.c and ../examples/autotest-validate/autotest-validate.c;../examples/threading/threading.c
 -- Configuring done (0.0s)
 -- Generating done (0.0s)
--- Build files have been written to: /home/carlos/aesd-assignments/cmake-build-debug
+CMake Error:
+  Running
+
+   '/opt/jetbrains/clion-2024.1.4/bin/ninja/linux/x64/ninja' '-C' '/home/carlos/aesd-assignments/cmake-build-debug' '-t' 'recompact'
+
+  failed with:
+
+   ninja: error: build.ninja:283: server/aesdsocket.c is defined as an output multiple times
+
+  
+
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
