@@ -13,6 +13,7 @@
 #define PORT 9000
 #define BACKLOG 10
 #define FILE_PATH "/var/tmp/aesdsocketdata"
+#define PIDFILE "/var/run/aesdsocket.pid"
 
 int server_fd = -1;
 int client_fd = -1;
@@ -69,6 +70,15 @@ void handle_connection(int client_fd) {
     }
 
     fclose(file);
+}
+void write_pid() {
+    FILE *pid_file = fopen(PIDFILE, "w");
+    if (pid_file) {
+        fprintf(pid_file, "%d\n", getpid());
+        fclose(pid_file);
+    } else {
+        syslog(LOG_ERR, "Failed to write PID file: %s", strerror(errno));
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -144,6 +154,10 @@ int main(int argc, char *argv[]) {
         close(STDIN_FILENO);
         close(STDOUT_FILENO);
         close(STDERR_FILENO);
+
+        // Write the PID file on the socket file
+        write_pid();
+
     }
 
     // Start listening on the socket

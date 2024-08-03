@@ -9,18 +9,13 @@ PIDFILE=/var/run/$NAME.pid
 start() {
     echo "Starting $DESC: $NAME"
     if [ -f $PIDFILE ]; then
-        echo "$DESC is already running."
-    else
-        $DAEMON $DAEMON_OPTS &
-        sleep 1
-        PID=$(pgrep -f "$DAEMON $DAEMON_OPTS")
-        if [ -n "$PID" ]; then
-            echo $PID > $PIDFILE
-            echo "$DESC started with PID $PID"
-        else
-            echo "Failed to start $DESC"
+        if kill -0 $(cat $PIDFILE) > /dev/null 2>&1; then
+            echo "$DESC is already running."
+            return 1
         fi
     fi
+    $DAEMON $DAEMON_OPTS &
+    echo "$DESC started"
 }
 
 stop() {
