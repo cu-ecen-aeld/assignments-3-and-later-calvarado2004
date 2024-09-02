@@ -1,4 +1,4 @@
-/opt/jetbrains/clion-2024.1.4/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/opt/jetbrains/clion-2024.1.4/bin/ninja/linux/x64/ninja -G Ninja -S /home/carlos/aesd-assignments -B /home/carlos/aesd-assignments/cmake-build-debug
+/opt/jetbrains/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/opt/jetbrains/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/carlos/aesd-assignments -B /home/carlos/aesd-assignments/cmake-build-debug
 CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
   Compatibility with CMake < 3.5 will be removed from a future version of
   CMake.
