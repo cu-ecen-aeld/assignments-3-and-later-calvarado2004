@@ -137,12 +137,6 @@ void* timestamp_thread(void* arg) {
     struct timespec ts;
     clock_gettime(CLOCK_REALTIME, &ts);
 
-    // Calculate the next timestamp time
-    ts.tv_sec += 10;
-
-    // Sleep until the next timestamp
-    clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &ts, NULL);
-
     while (running) {
         // Create timestamp string
         time_t now = time(NULL);
