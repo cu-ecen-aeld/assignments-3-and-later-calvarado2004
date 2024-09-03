@@ -290,15 +290,16 @@ int main(int argc, char *argv[]) {
 
     sleep(9);
 
-    // Start the timestamp thread
-    pthread_t ts_thread;
-    if (pthread_create(&ts_thread, NULL, timestamp_thread, NULL) != 0) {
-        syslog(LOG_ERR, "Failed to create timestamp thread: %s", strerror(errno));
-        cleanup();
-        return -1;
-    }
-
     while (running) {
+
+        // Start the timestamp thread
+        pthread_t ts_thread;
+        if (pthread_create(&ts_thread, NULL, timestamp_thread, NULL) != 0) {
+            syslog(LOG_ERR, "Failed to create timestamp thread: %s", strerror(errno));
+            cleanup();
+            return -1;
+        }
+
         // Accept a connection
         client_addr_len = sizeof(client_addr);
         int client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &client_addr_len);
@@ -334,11 +335,13 @@ int main(int argc, char *argv[]) {
         pthread_mutex_unlock(&file_mutex);
     }
 
+
+
     // Wait for all threads to finish
     wait_for_all_threads_to_finish();
 
     // Clean up the timestamp thread
-    pthread_join(ts_thread, NULL);
+    //pthread_join(ts_thread, NULL);
 
     cleanup();
     return 0;
