@@ -138,6 +138,11 @@ void* timestamp_thread(void* arg) {
     clock_gettime(CLOCK_REALTIME, &ts);
 
     while (running) {
+        // Calculate the next timestamp time
+        ts.tv_sec += 10;
+        // Sleep until the next timestamp
+        clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &ts, NULL);
+
         // Create timestamp string
         time_t now = time(NULL);
         struct tm *time_info = localtime(&now);
@@ -155,12 +160,6 @@ void* timestamp_thread(void* arg) {
             syslog(LOG_ERR, "Failed to open file for timestamp: %s", strerror(errno));
         }
         pthread_mutex_unlock(&file_mutex);
-
-        // Calculate the next timestamp time
-        ts.tv_sec += 10;
-
-        // Sleep until the next timestamp
-        clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &ts, NULL);
 
     }
     return NULL;
@@ -288,7 +287,7 @@ int main(int argc, char *argv[]) {
 
     syslog(LOG_INFO, "Server is now listening on port %d", PORT);
 
-    // Start the timestamp thread
+    // Start the timestamp thread, it won't clean up until the main program exits
     pthread_t ts_thread;
     if (pthread_create(&ts_thread, NULL, timestamp_thread, NULL) != 0) {
         syslog(LOG_ERR, "Failed to create timestamp thread: %s", strerror(errno));
@@ -333,13 +332,8 @@ int main(int argc, char *argv[]) {
         pthread_mutex_unlock(&file_mutex);
     }
 
-
-
     // Wait for all threads to finish
     wait_for_all_threads_to_finish();
-
-    // Clean up the timestamp thread
-    //pthread_join(ts_thread, NULL);
 
     cleanup();
     return 0;
