@@ -24,6 +24,7 @@ stop() {
         PID=$(cat $PIDFILE)
         kill -15 $PID
         rm -f $PIDFILE
+        sleep 4
         echo "$DESC stopped"
     else
         echo "$DESC is not running."
@@ -45,7 +46,7 @@ status() {
 
 restart() {
     stop
-    sleep 4
+    sleep 3
     start
 }
 
