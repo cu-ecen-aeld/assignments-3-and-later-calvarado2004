@@ -137,14 +137,13 @@ void* timestamp_thread(void* arg) {
     struct timespec ts;
     clock_gettime(CLOCK_REALTIME, &ts);
 
+    // Calculate the next timestamp time
+    ts.tv_sec += 10;
+
+    // Sleep until the next timestamp
+    clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &ts, NULL);
+
     while (running) {
-
-        // Calculate the next timestamp time
-        ts.tv_sec += 10;
-
-        // Sleep until the next timestamp
-        clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &ts, NULL);
-
         // Create timestamp string
         time_t now = time(NULL);
         struct tm *time_info = localtime(&now);
@@ -162,6 +161,13 @@ void* timestamp_thread(void* arg) {
             syslog(LOG_ERR, "Failed to open file for timestamp: %s", strerror(errno));
         }
         pthread_mutex_unlock(&file_mutex);
+
+        // Calculate the next timestamp time
+        ts.tv_sec += 10;
+
+        // Sleep until the next timestamp
+        clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &ts, NULL);
+
     }
     return NULL;
 }
