@@ -288,17 +288,15 @@ int main(int argc, char *argv[]) {
 
     syslog(LOG_INFO, "Server is now listening on port %d", PORT);
 
-    sleep(9);
+    // Start the timestamp thread
+    pthread_t ts_thread;
+    if (pthread_create(&ts_thread, NULL, timestamp_thread, NULL) != 0) {
+        syslog(LOG_ERR, "Failed to create timestamp thread: %s", strerror(errno));
+        cleanup();
+        return -1;
+    }
 
     while (running) {
-
-        // Start the timestamp thread
-        pthread_t ts_thread;
-        if (pthread_create(&ts_thread, NULL, timestamp_thread, NULL) != 0) {
-            syslog(LOG_ERR, "Failed to create timestamp thread: %s", strerror(errno));
-            cleanup();
-            return -1;
-        }
 
         // Accept a connection
         client_addr_len = sizeof(client_addr);
