@@ -288,9 +288,6 @@ int main(int argc, char *argv[]) {
 
     syslog(LOG_INFO, "Server is now listening on port %d", PORT);
 
-    // Wait for 5 seconds before starting the timestamp thread
-    sleep(5);
-
     // Start the timestamp thread
     pthread_t ts_thread;
     if (pthread_create(&ts_thread, NULL, timestamp_thread, NULL) != 0) {
