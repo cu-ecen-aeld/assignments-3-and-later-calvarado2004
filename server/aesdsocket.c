@@ -295,6 +295,8 @@ int main(int argc, char *argv[]) {
         cleanup();
         return -1;
     }
+    
+    sleep(10);
 
     while (running) {
         // Accept a connection
