@@ -8,6 +8,18 @@
 #ifndef AESD_CHAR_DRIVER_AESDCHAR_H_
 #define AESD_CHAR_DRIVER_AESDCHAR_H_
 
+#include "aesd-circular-buffer.h"
+#include <linux/mutex.h>
+
+struct aesd_dev {
+    struct cdev cdev;
+    struct aesd_circular_buffer circular_buffer;
+    struct aesd_buffer_entry write_entry;
+    struct mutex mutex;
+};
+
+#endif /* AESD_CHAR_DRIVER_AESDCHAR_H_ */
+
 #define AESD_DEBUG 1  //Remove comment on this line to enable debug
 
 #undef PDEBUG             /* undef it, just in case */

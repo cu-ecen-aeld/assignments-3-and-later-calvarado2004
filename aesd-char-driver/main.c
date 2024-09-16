@@ -16,8 +16,11 @@
 #include <linux/printk.h>
 #include <linux/types.h>
 #include <linux/cdev.h>
+#include <linux/slab.h>  // For kmalloc and kfree
 #include <linux/fs.h> // file_operations
 #include "aesdchar.h"
+#include "aesd-circular-buffer.h"
+
 int aesd_major =   0; // use dynamic major
 int aesd_minor =   0;
 
@@ -32,6 +35,7 @@ int aesd_open(struct inode *inode, struct file *filp)
     /**
      * TODO: handle open
      */
+
     struct aesd_dev *dev = container_of(inode->i_cdev, struct aesd_dev, cdev);
     filp->private_data = dev; // Associate file with device structure
     return 0;
@@ -43,6 +47,9 @@ int aesd_release(struct inode *inode, struct file *filp)
     /**
      * TODO: handle release
      */
+    // Free any partially accumulated write entry
+    struct aesd_dev *dev = filp->private_data; // Retrieve device structure
+
     // Free any partially accumulated write entry
     if (dev->write_entry.buffptr != NULL) {
         kfree(dev->write_entry.buffptr);
@@ -228,12 +235,14 @@ void aesd_cleanup_module(void)
      * TODO: cleanup AESD specific poritions here as necessary
      */
     // Free the circular buffer entries
+    int i;
+
+    // Free the circular buffer entries
     for (i = 0; i < AESDCHAR_MAX_WRITE_OPERATIONS_SUPPORTED; i++) {
         kfree(aesd_device.circular_buffer.entry[i].buffptr);
     }
 
     mutex_destroy(&aesd_device.mutex);
-
     unregister_chrdev_region(devno, 1);
 }
 
