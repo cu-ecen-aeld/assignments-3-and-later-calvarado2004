@@ -106,6 +106,8 @@ ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
     struct aesd_dev *dev = filp->private_data;
     char *kbuf;
     struct aesd_buffer_entry entry;
+    int newline_found = 0;
+    size_t i;
 
     if (!dev) {
         return -EFAULT;
@@ -113,8 +115,7 @@ ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
 
     kbuf = kmalloc(count, GFP_KERNEL);
     if (!kbuf) {
-        mutex_unlock(&dev->lock);
-        return -ENOMEM;
+        return retval;
     }
 
     if (copy_from_user(kbuf, buf, count)) {
@@ -122,21 +123,41 @@ ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
         return -EFAULT;
     }
 
-    entry.buffptr = kbuf;
-    entry.size = count;
-
     if (mutex_lock_interruptible(&dev->lock)) {
         kfree(kbuf);
         return -ERESTARTSYS;
     }
 
-    aesd_circular_buffer_add_entry(&dev->buffer, &entry);
+    for (i = 0; i < count; i++) {
+        dev->partial_write_buffer[dev->partial_write_size++] = kbuf[i];
+
+        if (kbuf[i] == '\n') {
+            newline_found = 1;
+
+            entry.buffptr = dev->partial_write_buffer;
+            entry.size = dev->partial_write_size;
+
+            aesd_circular_buffer_add_entry(&dev->buffer, &entry);
+
+            dev->partial_write_size = 0;
+        }
+
+        if (dev->partial_write_size >= AESDCHAR_MAX_WRITE_SIZE) {
+            kfree(kbuf);
+            mutex_unlock(&dev->lock);
+            return -ENOMEM;
+        }
+    }
+
     retval = count;
 
     mutex_unlock(&dev->lock);
+    kfree(kbuf);
 
     return retval;
+
 }
+
 struct file_operations aesd_fops = {
     .owner =    THIS_MODULE,
     .read =     aesd_read,

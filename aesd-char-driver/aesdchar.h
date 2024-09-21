@@ -11,6 +11,7 @@
 
 #ifndef AESD_CHAR_DRIVER_AESDCHAR_H_
 #define AESD_CHAR_DRIVER_AESDCHAR_H_
+#define AESDCHAR_MAX_WRITE_SIZE 1024
 
 #define AESD_DEBUG 1  //Remove comment on this line to enable debug
 
@@ -36,7 +37,8 @@ struct aesd_dev
     struct cdev cdev;     /* Char device structure      */
     struct aesd_circular_buffer buffer; /* Circular buffer for write operations */
     struct mutex lock;   /* Mutex to synchronize access */
-
+    char partial_write_buffer[AESDCHAR_MAX_WRITE_SIZE]; // Buffer for partial writes
+    size_t partial_write_size;  // Current size of the partial write buffer
 
 };
 
