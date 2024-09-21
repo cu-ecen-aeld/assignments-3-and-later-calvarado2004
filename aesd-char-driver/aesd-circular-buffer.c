@@ -32,6 +32,7 @@ struct aesd_buffer_entry *aesd_circular_buffer_find_entry_offset_for_fpos(struct
     /**
     * TODO: implement per description
     */
+
     size_t total_offset = 0;
     uint8_t index = buffer->out_offs;
 

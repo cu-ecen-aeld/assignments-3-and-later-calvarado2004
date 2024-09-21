@@ -33,7 +33,18 @@ int aesd_open(struct inode *inode, struct file *filp)
     /**
      * TODO: handle open
      */
+
+    struct aesd_dev *dev;
+
+    dev = container_of(inode->i_cdev, struct aesd_dev, cdev);
+    filp->private_data = dev;
+
+    if (!dev) {
+        return -EFAULT;
+    }
+
     return 0;
+
 }
 
 int aesd_release(struct inode *inode, struct file *filp)
@@ -42,6 +53,7 @@ int aesd_release(struct inode *inode, struct file *filp)
     /**
      * TODO: handle release
      */
+
     struct aesd_dev *dev;
 
     dev = container_of(inode->i_cdev, struct aesd_dev, cdev);
@@ -90,13 +102,20 @@ ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
     /**
      * TODO: handle write
      */
+
     struct aesd_dev *dev = filp->private_data;
     char *kbuf;
     struct aesd_buffer_entry entry;
 
+    if (!dev) {
+        return -EFAULT;
+    }
+
     kbuf = kmalloc(count, GFP_KERNEL);
-    if (!kbuf)
-        return retval;
+    if (!kbuf) {
+        mutex_unlock(&dev->lock);
+        return -ENOMEM;
+    }
 
     if (copy_from_user(kbuf, buf, count)) {
         kfree(kbuf);
@@ -158,6 +177,7 @@ int aesd_init_module(void)
     /**
      * TODO: initialize the AESD specific portion of the device
      */
+
     mutex_init(&aesd_device.lock);  /* Initialize the mutex */
     aesd_circular_buffer_init(&aesd_device.buffer); /* Initialize the circular buffer */
 
@@ -179,6 +199,7 @@ void aesd_cleanup_module(void)
     /**
      * TODO: cleanup AESD specific poritions here as necessary
      */
+
     struct aesd_buffer_entry *entry;
     uint8_t index;
 
