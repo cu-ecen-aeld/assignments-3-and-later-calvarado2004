@@ -31,8 +31,21 @@ CMake Deprecation Warning at assignment-autotest/Unity/src/CMakeLists.txt:11 (cm
   CMake that the project does not need compatibility with older versions.
 
 
--- Generating ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c from test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment7/Test_circular_buffer.c
--- Building executable including ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment7/Test_circular_buffer.c and ../examples/autotest-validate/autotest-validate.c;../aesd-char-driver/aesd-circular-buffer.c
+-- Generating ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;../aesd-char-driver/main.c;../aesd-char-driver/main.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;../aesd-char-driver/main.c;../aesd-char-driver/main.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c;../aesd-char-driver/main.c;../aesd-char-driver/main.c from test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment7/Test_circular_buffer.c
+-- Building executable including ;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c;../aesd-char-driver/main.c;../aesd-char-driver/main.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;../aesd-char-driver/main.c;../aesd-char-driver/main.c;/home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c;../aesd-char-driver/main.c;../aesd-char-driver/main.c test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment7/Test_circular_buffer.c and ../examples/autotest-validate/autotest-validate.c;../aesd-char-driver/aesd-circular-buffer.c
 -- Configuring done (0.0s)
 -- Generating done (0.0s)
--- Build files have been written to: /home/carlos/aesd-assignments/cmake-build-debug
+CMake Error:
+  Running
+
+   '/opt/jetbrains/clion/bin/ninja/linux/x64/ninja' '-C' '/home/carlos/aesd-assignments/cmake-build-debug' '-t' 'recompact'
+
+  failed with:
+
+   ninja: error: build.ninja:283: aesd-char-driver/main.c is defined as an output multiple times
+
+  
+
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

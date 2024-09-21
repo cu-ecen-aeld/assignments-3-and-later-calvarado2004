@@ -10,7 +10,7 @@
  * @copyright Copyright (c) 2019
  *
  */
-
+#include <linux/slab.h>  // For kmalloc and kfree
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/printk.h>

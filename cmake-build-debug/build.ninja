@@ -117,7 +117,7 @@ build install/strip: phony CMakeFiles/install/strip.util
 #############################################
 # Order-only phony target for assignment-autotest
 
-build cmake_object_order_depends_target_assignment-autotest: phony || /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c cmake_object_order_depends_target_unity
+build cmake_object_order_depends_target_assignment-autotest: phony || /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c aesd-char-driver/main.c cmake_object_order_depends_target_unity
 
 build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello.c || cmake_object_order_depends_target_assignment-autotest
   DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o.d
@@ -146,6 +146,13 @@ build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Te
   INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src -I/home/carlos/aesd-assignments/assignment-autotest/. -I/home/carlos/aesd-assignments/assignment-autotest/..
   OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
   OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1
+
+build assignment-autotest/CMakeFiles/assignment-autotest.dir/__/aesd-char-driver/main.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/cmake-build-debug/aesd-char-driver/main.c || cmake_object_order_depends_target_assignment-autotest
+  DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/__/aesd-char-driver/main.c.o.d
+  FLAGS = -pthread -Wall -Werror -g -fdiagnostics-color=always
+  INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src -I/home/carlos/aesd-assignments/assignment-autotest/. -I/home/carlos/aesd-assignments/assignment-autotest/..
+  OBJECT_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir
+  OBJECT_FILE_DIR = assignment-autotest/CMakeFiles/assignment-autotest.dir/__/aesd-char-driver
 
 build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o: C_COMPILER__assignment-autotest_unscanned_Debug /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c || cmake_object_order_depends_target_assignment-autotest
   DEP_FILE = assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o.d
@@ -190,7 +197,7 @@ build assignment-autotest/CMakeFiles/assignment-autotest.dir/test/unity_runner.c
 #############################################
 # Link the executable assignment-autotest/assignment-autotest
 
-build assignment-autotest/assignment-autotest: C_EXECUTABLE_LINKER__assignment-autotest_Debug assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment7/Test_circular_buffer.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment7/Test_circular_buffer_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/autotest-validate/autotest-validate.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/aesd-char-driver/aesd-circular-buffer.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/unity_runner.c.o | assignment-autotest/Unity/src/libunity.a || assignment-autotest/Unity/src/libunity.a
+build assignment-autotest/assignment-autotest: C_EXECUTABLE_LINKER__assignment-autotest_Debug assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment7/Test_circular_buffer.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/aesd-char-driver/main.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment7/Test_circular_buffer_Runner.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/autotest-validate/autotest-validate.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/__/aesd-char-driver/aesd-circular-buffer.c.o assignment-autotest/CMakeFiles/assignment-autotest.dir/test/unity_runner.c.o | assignment-autotest/Unity/src/libunity.a || assignment-autotest/Unity/src/libunity.a
   FLAGS = -pthread -Wall -Werror -g
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = assignment-autotest/Unity/src/libunity.a
@@ -269,9 +276,9 @@ build assignment-autotest/install/strip: phony assignment-autotest/CMakeFiles/in
 #############################################
 # Custom command for /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c
 
-build /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c: CUSTOM_COMMAND /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer.c || assignment-autotest/Unity/src/libunity.a
+build /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c aesd-char-driver/main.c aesd-char-driver/main.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c aesd-char-driver/main.c aesd-char-driver/main.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c aesd-char-driver/main.c aesd-char-driver/main.c /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c | ${cmake_ninja_workdir}aesd-char-driver/main.c ${cmake_ninja_workdir}aesd-char-driver/main.c ${cmake_ninja_workdir}aesd-char-driver/main.c ${cmake_ninja_workdir}aesd-char-driver/main.c ${cmake_ninja_workdir}aesd-char-driver/main.c ${cmake_ninja_workdir}aesd-char-driver/main.c: CUSTOM_COMMAND /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate.c /home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer.c || assignment-autotest/Unity/src/libunity.a
   COMMAND = cd /home/carlos/aesd-assignments/cmake-build-debug/assignment-autotest && /home/carlos/aesd-assignments/assignment-autotest/auto_generate.sh test/assignment1/Test_hello.c test/assignment1/Test_assignment_validate.c test/assignment7/Test_circular_buffer.c
-  DESC = Generating /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c, /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c, /home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c, /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c
+  DESC = Generating /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_hello_Runner.c, ../aesd-char-driver/main.c, ../aesd-char-driver/main.c, /home/carlos/aesd-assignments/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c, ../aesd-char-driver/main.c, ../aesd-char-driver/main.c, /home/carlos/aesd-assignments/assignment-autotest/test/assignment7/Test_circular_buffer_Runner.c, ../aesd-char-driver/main.c, ../aesd-char-driver/main.c, /home/carlos/aesd-assignments/assignment-autotest/test/unity_runner.c
   restat = 1
 
 # =============================================================================
@@ -365,6 +372,13 @@ build assignment-autotest/Unity/src/CMakeFiles/unity.dir/unity.c.o: C_COMPILER__
   OBJECT_DIR = assignment-autotest/Unity/src/CMakeFiles/unity.dir
   OBJECT_FILE_DIR = assignment-autotest/Unity/src/CMakeFiles/unity.dir
 
+build assignment-autotest/Unity/src/CMakeFiles/unity.dir/__/__/__/aesd-char-driver/main.c.o: C_COMPILER__unity_unscanned_Debug /home/carlos/aesd-assignments/aesd-char-driver/main.c || cmake_object_order_depends_target_unity
+  DEP_FILE = assignment-autotest/Unity/src/CMakeFiles/unity.dir/__/__/__/aesd-char-driver/main.c.o.d
+  FLAGS = -pthread -g -fdiagnostics-color=always
+  INCLUDES = -I/home/carlos/aesd-assignments/assignment-autotest/Unity/src
+  OBJECT_DIR = assignment-autotest/Unity/src/CMakeFiles/unity.dir
+  OBJECT_FILE_DIR = assignment-autotest/Unity/src/CMakeFiles/unity.dir/__/__/__/aesd-char-driver
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target unity
@@ -373,7 +387,7 @@ build assignment-autotest/Unity/src/CMakeFiles/unity.dir/unity.c.o: C_COMPILER__
 #############################################
 # Link the static library assignment-autotest/Unity/src/libunity.a
 
-build assignment-autotest/Unity/src/libunity.a: C_STATIC_LIBRARY_LINKER__unity_Debug assignment-autotest/Unity/src/CMakeFiles/unity.dir/unity.c.o
+build assignment-autotest/Unity/src/libunity.a: C_STATIC_LIBRARY_LINKER__unity_Debug assignment-autotest/Unity/src/CMakeFiles/unity.dir/unity.c.o assignment-autotest/Unity/src/CMakeFiles/unity.dir/__/__/__/aesd-char-driver/main.c.o
   LANGUAGE_COMPILE_FLAGS = -pthread -g
   OBJECT_DIR = assignment-autotest/Unity/src/CMakeFiles/unity.dir
   POST_BUILD = :
