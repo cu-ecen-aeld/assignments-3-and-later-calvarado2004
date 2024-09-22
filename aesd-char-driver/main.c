@@ -146,19 +146,21 @@ ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
                 goto unlock_out;
             }
 
-            // Copy partial buffer to the entry
+            // Copy the contents of partial write buffer to the circular buffer entry
             memcpy((void *)entry.buffptr, dev->partial_write_buffer, dev->partial_write_size);
             entry.size = dev->partial_write_size;
 
-            // Add entry to circular buffer
+            // If circular buffer is full, free the old buffer
             if (dev->buffer.full) {
                 kfree(dev->buffer.entry[dev->buffer.out_offs].buffptr); // Free old entry if buffer is full
             }
+
             aesd_circular_buffer_add_entry(&dev->buffer, &entry);
 
-            dev->partial_write_size = 0;
+            dev->partial_write_size = 0; // Reset partial write size after adding to buffer
         }
 
+        // Check for write size overflow
         if (dev->partial_write_size >= AESDCHAR_MAX_WRITE_SIZE) {
             retval = -ENOMEM;
             goto unlock_out;
@@ -167,11 +169,11 @@ ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
 
     retval = count;
 
-unlock_out:
-    mutex_unlock(&dev->lock);
+    unlock_out:
+        mutex_unlock(&dev->lock);
 
-out:
-    kfree(kbuf);
+    out:
+        kfree(kbuf);
     return retval;
 
 }
