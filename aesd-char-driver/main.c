@@ -84,14 +84,19 @@ ssize_t aesd_read(struct file *filp, char __user *buf, size_t count,
         bytes_read = min(count, entry->size - entry_offset);
         if (copy_to_user(buf, entry->buffptr + entry_offset, bytes_read)) {
             retval = -EFAULT;
+            goto out;
         } else {
             *f_pos += bytes_read;
             retval = bytes_read;
         }
+    } else {
+        retval = 0;  // Return 0 to indicate EOF
     }
 
+out:
     mutex_unlock(&dev->lock);
     return retval;
+
 }
 
 ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
@@ -119,13 +124,13 @@ ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
     }
 
     if (copy_from_user(kbuf, buf, count)) {
-        kfree(kbuf);
-        return -EFAULT;
+        retval = -EFAULT;
+        goto out;
     }
 
     if (mutex_lock_interruptible(&dev->lock)) {
-        kfree(kbuf);
-        return -ERESTARTSYS;
+        retval = -ERESTARTSYS;
+        goto out;
     }
 
     for (i = 0; i < count; i++) {
@@ -134,26 +139,39 @@ ssize_t aesd_write(struct file *filp, const char __user *buf, size_t count,
         if (kbuf[i] == '\n') {
             newline_found = 1;
 
-            entry.buffptr = dev->partial_write_buffer;
+            // Allocate buffer for the entry
+            entry.buffptr = kmalloc(dev->partial_write_size, GFP_KERNEL);
+            if (!entry.buffptr) {
+                retval = -ENOMEM;
+                goto unlock_out;
+            }
+
+            // Copy partial buffer to the entry
+            memcpy((void *)entry.buffptr, dev->partial_write_buffer, dev->partial_write_size);
             entry.size = dev->partial_write_size;
 
+            // Add entry to circular buffer
+            if (dev->buffer.full) {
+                kfree(dev->buffer.entry[dev->buffer.out_offs].buffptr); // Free old entry if buffer is full
+            }
             aesd_circular_buffer_add_entry(&dev->buffer, &entry);
 
             dev->partial_write_size = 0;
         }
 
         if (dev->partial_write_size >= AESDCHAR_MAX_WRITE_SIZE) {
-            kfree(kbuf);
-            mutex_unlock(&dev->lock);
-            return -ENOMEM;
+            retval = -ENOMEM;
+            goto unlock_out;
         }
     }
 
     retval = count;
 
+unlock_out:
     mutex_unlock(&dev->lock);
-    kfree(kbuf);
 
+out:
+    kfree(kbuf);
     return retval;
 
 }
