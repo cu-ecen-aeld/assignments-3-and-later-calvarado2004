@@ -12,6 +12,7 @@
 #include <pthread.h>
 #include <time.h>
 #include "queue.h" // For managing threads using linked lists
+#include "../aesd-char-driver/aesd_ioctl.h"
 
 #define PORT 9000
 #define BACKLOG 10
@@ -68,6 +69,91 @@ void signal_handler(int sig) {
     }
 }
 
+// Function to handle AESDCHAR_IOCSEEKTO and return the correct content from the driver
+int handle_aesd_ioctl_seek(int client_fd, char *buffer) {
+    int aesd_fd;
+    struct aesd_seekto seekto;
+    char driver_buffer[1024];
+    int bytes_read;
+
+    // Extract seek information from the buffer (e.g., AESDCHAR_IOCSEEKTO:0,2)
+    if (sscanf(buffer, "AESDCHAR_IOCSEEKTO:%d,%d", &seekto.write_cmd, &seekto.write_cmd_offset) != 2) {
+        syslog(LOG_ERR, "Invalid IOCTL command format");
+        return -1;
+    }
+
+    // Open the driver (device file) for reading and writing
+    aesd_fd = open("/dev/aesdchar", O_RDWR);
+    if (aesd_fd == -1) {
+        syslog(LOG_ERR, "Failed to open AESD char device: %s", strerror(errno));
+        return -1;
+    }
+
+    // Re-open the temporary file for reading (to pass line by line to the driver)
+    FILE *temp_file = fopen(FILE_PATH, "r");
+    if (!temp_file) {
+        syslog(LOG_ERR, "Failed to open temporary file for reading");
+        close(aesd_fd);
+        return -1;
+    }
+
+    // Read each line from the temp file and write it to the driver
+    while (fgets(driver_buffer, sizeof(driver_buffer), temp_file) != NULL) {
+        if (write(aesd_fd, driver_buffer, strlen(driver_buffer)) == -1) {
+            syslog(LOG_ERR, "Failed to write to AESD char device: %s", strerror(errno));
+            fclose(temp_file);
+            close(aesd_fd);
+            return -1;
+        }
+    }
+
+    // Close the temporary file as it has been fully read
+    fclose(temp_file);
+
+    // Perform the IOCTL seek operation
+    if (ioctl(aesd_fd, AESDCHAR_IOCSEEKTO, &seekto) == -1) {
+        syslog(LOG_ERR, "IOCTL seek operation failed: %s", strerror(errno));
+        close(aesd_fd);
+        return -1;
+    }
+
+    // Now read back from the driver after the seek and append the remaining content
+    bytes_read = read(aesd_fd, driver_buffer, sizeof(driver_buffer) - 1); // Read data from the current seek position
+    if (bytes_read == -1) {
+        syslog(LOG_ERR, "Failed to read from AESD char device after seek: %s", strerror(errno));
+        close(aesd_fd);
+        return -1;
+    }
+
+    // Null-terminate the buffer
+    driver_buffer[bytes_read] = '\0';
+
+    // Send the result back to the client
+    if (send(client_fd, driver_buffer, bytes_read, 0) == -1) {
+        syslog(LOG_ERR, "Failed to send data back to client: %s", strerror(errno));
+        close(aesd_fd);
+        return -1;
+    }
+
+    // Read and append the remaining content until the end of the file
+    while ((bytes_read = read(aesd_fd, driver_buffer, sizeof(driver_buffer) - 1)) > 0) {
+        driver_buffer[bytes_read] = '\0';  // Null-terminate the buffer
+        if (send(client_fd, driver_buffer, bytes_read, 0) == -1) {
+            syslog(LOG_ERR, "Failed to send remaining data to client: %s", strerror(errno));
+            close(aesd_fd);
+            return -1;
+        }
+    }
+
+    syslog(LOG_INFO, "Sent the remaining data from seek position to the end of the buffer");
+
+    // Close the driver
+    close(aesd_fd);
+
+    return 0;
+}
+
+
 // Function to handle a new connection, called by a new thread
 void* handle_connection(void* thread_data_arg) {
     struct thread_data *t_data = (struct thread_data *)thread_data_arg;
@@ -91,6 +177,26 @@ void* handle_connection(void* thread_data_arg) {
     while ((bytes_received = recv(client_fd, buffer, sizeof(buffer) - 1, 0)) > 0) {
         buffer[bytes_received] = '\0';
         syslog(LOG_INFO, "Thread %lu: Received %d bytes", pthread_self(), bytes_received);
+
+        // Handle AESDCHAR_IOCSEEKTO case
+        if (strstr(buffer, "AESDCHAR_IOCSEEKTO:") != NULL) {
+            syslog(LOG_INFO, "Thread %lu: Handling IOCTL seek command", pthread_self());
+
+            // Call the IOCTL handler function to perform the seek and get the filtered result
+            if (handle_aesd_ioctl_seek(client_fd, buffer) == 0) {
+                // Exit early after sending the IOCTL result
+                fclose(file);
+                pthread_mutex_unlock(&file_mutex);
+                close(client_fd);
+                free(t_data);
+                return NULL;
+            } else {
+                syslog(LOG_ERR, "Thread %lu: IOCTL seek failed", pthread_self());
+            }
+            continue;
+        }
+
+        // Write the received data to the file
         if (fputs(buffer, file) == EOF) {
             syslog(LOG_ERR, "Thread %lu: Failed to write to file", pthread_self());
             break;
@@ -106,25 +212,36 @@ void* handle_connection(void* thread_data_arg) {
     fclose(file);
     syslog(LOG_INFO, "Thread %lu: Finished writing to file", pthread_self());
 
-    file = fopen(FILE_PATH, "r");
-    if (file) {
-        while ((bytes_received = fread(buffer, 1, sizeof(buffer), file)) > 0) {
-            send(client_fd, buffer, bytes_received, 0);
+    // If not an IOCTL command, send the file's contents back to the client
+    if (strstr(buffer, "AESDCHAR_IOCSEEKTO:") == NULL) {
+        file = fopen(FILE_PATH, "r");
+        if (!file) {
+            syslog(LOG_ERR, "Thread %lu: Failed to re-open file for reading", pthread_self());
+            pthread_mutex_unlock(&file_mutex);
+            close(client_fd);
+            free(t_data);
+            return NULL;
         }
+
+        // Send the file's contents back to the client
+        while ((bytes_received = fread(buffer, 1, sizeof(buffer), file)) > 0) {
+            if (send(client_fd, buffer, bytes_received, 0) == -1) {
+                syslog(LOG_ERR, "Thread %lu: Failed to send data to client", pthread_self());
+                break;
+            }
+        }
+
         fclose(file);
     }
 
     pthread_mutex_unlock(&file_mutex);
     close(client_fd);
-
     syslog(LOG_INFO, "Thread %lu: Connection closed", pthread_self());
 
-    // Remove the thread from the list
     pthread_mutex_lock(&file_mutex);
     TAILQ_REMOVE(&head, t_data, entries);
     pthread_mutex_unlock(&file_mutex);
 
-    // Signal that this thread has finished
     pthread_mutex_lock(&cond_mutex);
     pthread_cond_signal(&cond_var);
     pthread_mutex_unlock(&cond_mutex);
@@ -132,6 +249,7 @@ void* handle_connection(void* thread_data_arg) {
     free(t_data);
     return NULL;
 }
+
 
 void* timestamp_thread(void* arg) {
     struct timespec ts;
